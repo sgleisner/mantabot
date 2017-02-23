@@ -15,16 +15,11 @@ config_path = os.path.join(home_dir, '.config/manta/config.py')
 if os.path.isfile(config_path):
     app.config.from_pyfile(config_path)
 
-DUNNO_STICKER = app.config.get('DUNNO_STICKER', '')
-GO_AWAY_STICKER = app.config.get('GO_AWAY_STICKER', '')
 API_TOKEN = app.config.get('API_TOKEN', '')
 WEBHOOK = app.config.get('WEBHOOK', '')
 
 
-bot = Manta(DUNNO_STICKER,
-          GO_AWAY_STICKER,
-          API_TOKEN,
-          WEBHOOK)
+bot = Manta(API_TOKEN, WEBHOOK)
 
 
 @app.route("/"+API_TOKEN, methods=['POST'])

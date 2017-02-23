@@ -7,7 +7,9 @@ from bender import next_step
 class Manta(Bot):
     commands = {'/m': 'se tira un manta'}
 
-    def __init__(self, dunno_sticker, go_away_sticker, *args, **kwargs):
-        self.dunno_sticker = dunno_sticker
-        self.go_away_sticker = go_away_sticker
+    def __init__(self, *args, **kwargs):
         super(Manta, self).__init__(*args, **kwargs)
+
+    def help(self, *args, **kwargs):
+        return self.reply({'text': 'You called for help. None given.'})
+

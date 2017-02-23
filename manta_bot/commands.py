@@ -34,25 +34,6 @@ DEFAULT_CONFIG = """\
 # without setting up a domain and SSL certificates.
 #
 # WEBHOOK = 'https://manta.example.com/'
-
-#############
-# Stickers #
-#############
-#
-# Set the stickers to use when can't find a word and when the user
-# screws something up. Here are some good defaults:
-#
-DUNNO_STICKER = 'BQADAQADFgEAAgfchQABGqitkKZMNPEC'
-GO_AWAY_STICKER = 'BQADAQADIAEAAgfchQABE5NrHw-8_kIC'
-
-
-#########################
-# Sentry DSN (optional) #
-#########################
-#
-# If you want to use Sentry to monitor this app, this is it.
-#
-# SENTRY_DSN = ''
 """
 
 
