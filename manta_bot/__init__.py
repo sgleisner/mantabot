@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 import os
 import json
-from raven.contrib.flask import Sentry
 from flask import Flask
 from flask import request
 from .manta_bot import Manta
@@ -20,12 +19,6 @@ DUNNO_STICKER = app.config.get('DUNNO_STICKER', '')
 GO_AWAY_STICKER = app.config.get('GO_AWAY_STICKER', '')
 API_TOKEN = app.config.get('API_TOKEN', '')
 WEBHOOK = app.config.get('WEBHOOK', '')
-
-# Sentry
-try:
-    sentry = Sentry(app, dsn=app.config['SENTRY_DSN'])
-except KeyError:
-    pass
 
 
 bot = Manta(DUNNO_STICKER,

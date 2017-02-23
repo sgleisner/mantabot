@@ -16,18 +16,6 @@ let
     doCheck = false;
   };
 
-  raven = with pkgs.python3Packages; buildPythonPackage rec {
-    name = "raven-${version}";
-    version = "5.12.0";
-    src = pkgs.fetchurl {
-      url = "https://pypi.python.org/packages/source/r/raven/raven-5.12.0.tar.gz";
-      md5 = "af9d327e5fb16579a6479c58a97e9d15";
-    };
-    propagatedBuildInputs = with pkgs;
-     [ python3 ];
-    doCheck = false;
-  };
-
 in
 { stdenv ? pkgs.stdenv }:
 
