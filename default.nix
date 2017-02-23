@@ -37,10 +37,10 @@ pkgs.python3Packages.buildPythonPackage {
   src = if pkgs.lib.inNixShell then null else ./.;
   propagatedBuildInputs = with pkgs;
    [ python3
+     python3Packages.waitress
      python3Packages.blinker
      python3Packages.flask
      python3Packages.gunicorn
      python3Packages.click
-     drae
      bender ];
 }
