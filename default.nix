@@ -28,7 +28,6 @@ pkgs.python3Packages.buildPythonPackage {
      python3Packages.waitress
      python3Packages.blinker
      python3Packages.flask
-     python3Packages.gunicorn
      python3Packages.click
      bender ];
 }

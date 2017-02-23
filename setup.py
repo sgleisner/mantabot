@@ -7,7 +7,7 @@ import setuptools
 setuptools.setup(
     name='manta_bot',
     version='0.1.1',
-    install_requires=['bender>=0.0.3', 'blinker', 'flask', 'gunicorn', 'click'],
+    install_requires=['bender>=0.0.3', 'blinker', 'flask', 'waitress', 'click'],
     packages=setuptools.find_packages(),
     description = 'The original @manta_bot',
     author = 'José Sazo',

@@ -1,5 +1,7 @@
 import os
 import click
+from manta_bot import app
+from waitress import serve
 
 
 DEFAULT_CONFIG = """\
@@ -53,6 +55,7 @@ GO_AWAY_STICKER = 'BQADAQADIAEAAgfchQABE5NrHw-8_kIC'
 # SENTRY_DSN = ''
 """
 
+
 SUPERVISOR_CONFIG = """\
 [program:manta]
 command=/home/manta/.nix-profile/bin/manta start
@@ -63,6 +66,7 @@ redirect_stderr=true
 stdout_logfile=syslog
 stderr_logfile=syslog
 """
+
 
 NGINX_CONFIG = """\
 server {
@@ -100,6 +104,7 @@ CONFIG_FILE = os.path.join(CONFIG_DIR, 'config.py')
 def cli():
     """The original @manta_bot."""
 
+
 @cli.command()
 def init():
     """Initialize the configuration file.
@@ -117,6 +122,7 @@ def init():
     click.echo('Initialized new config in ~/.config/manta/config.py')
     click.echo('Edit it first to get any further.')
 
+
 @cli.command()
 def register():
     """Register the configured webhook with Telegram"""
@@ -125,30 +131,25 @@ def register():
     url = bot.register()
     click.echo("Webhook set to %s" % url)
 
+
 @cli.command()
 def runserver():
     """Run a development webserver on port 8000"""
-    os.execvp('gunicorn', ['gunicorn',
-                           'manta_bot:app',
-                           '--reload',
-                           '--log-level=debug',
-                           '--log-file=-'])
+    serve(app, host='127.0.0.1', port=8080)
+
 
 @cli.command()
 @click.option('--workers', default=4, help='Number of gunicorn workers.')
 def start(workers):
-    """Start gunicorn"""
-    os.execvp('gunicorn', ['gunicorn',
-                           'manta_bot:app',
-                           '--bind=unix:/tmp/manta_bot.socket',
-                           "--workers=%s" % workers,
-                           '--log-level=debug',
-                           '--log-file=-'])
+    """Start waitress"""
+    serve(app, unix_socket='/tmp/manta_bot.socket')
+
 
 @cli.command()
 def supervisor_sample():
     """Print a supervisor conf sample."""
     click.echo(SUPERVISOR_CONFIG)
+
 
 @cli.command()
 def nginx_sample():
