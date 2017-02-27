@@ -123,7 +123,7 @@ def runserver():
 @click.option('--workers', default=4, help='Number of gunicorn workers.')
 def start(workers):
     """Start waitress"""
-    serve(app, unix_socket='/tmp/manta_bot.socket')
+    serve(app, host='127.0.0.1', port=8080)
 
 
 @cli.command()
