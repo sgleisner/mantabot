@@ -3,11 +3,11 @@ let
 
   bender = with pkgs.python3Packages; buildPythonPackage rec {
     name = "bender-${version}";
-    version = "0.0.3";
+    version = "0.0.4";
     src = pkgs.fetchurl {
    
-      url = "https://pypi.python.org/packages/packages/a9/31/9f064b8ecf0da883c2736e96150766c7c1032f095479a7c45f004533a40f/bender-0.0.3.tar.gz";
-      md5 = "6218952e92ebffcbc9b5341b70e9155f";
+      url = "https://pypi.python.org/packages/b2/03/8667e4de20638bb73eefbdd18c7618a687b4c0d2dc984c130f247bb52fc7/bender-0.0.4.tar.gz";
+      md5 = "e6aa60ab6d2d78c6f5e6e3a442233674";
     };
     propagatedBuildInputs = with pkgs;
     [ python3Packages.requests2
