@@ -5,9 +5,12 @@ from bender import next_step
 
 
 class Manta(Bot):
-    commands = {'/m': 'get_message',
-                '/mn': 'new_message',
-                '/cancel': 'cancel'}
+    commands = {
+        '/m': 'get_message',
+        '/mn': 'new_message',
+        '/cancel': 'cancel',
+        '/delete': 'delete',
+    }
 
     def __init__(self, *args, **kwargs):
         super(Manta, self).__init__(*args, **kwargs)
@@ -155,6 +158,12 @@ class Manta(Bot):
 
     @final_step
     def cancel(self, *args, **kwargs):
+        self.clear_pending_message()
+        self._end_transaction()
+        return self.reply({'text': 'Your command has been cancelled. Anything else?', 'reply_markup': {'hide_keyboard': True, 'selective': True}})
+
+    @final_step
+    def delete(self, *args, **kwargs):
         self.clear_pending_message()
         self._end_transaction()
         return self.reply({'text': 'Your command has been cancelled. Anything else?', 'reply_markup': {'hide_keyboard': True, 'selective': True}})
