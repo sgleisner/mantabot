@@ -9,7 +9,7 @@ class Manta(Bot):
         '/m': 'get_message',
         '/mn': 'new_message',
         '/cancel': 'cancel',
-        '/delete': 'delete',
+        '/lwm': 'propose_for_deletion',
     }
 
     def __init__(self, *args, **kwargs):
@@ -163,10 +163,20 @@ class Manta(Bot):
         return self.reply({'text': 'Your command has been cancelled. Anything else?', 'reply_markup': {'hide_keyboard': True, 'selective': True}})
 
     @final_step
-    def delete(self, *args, **kwargs):
-        self.clear_pending_message()
-        self._end_transaction()
-        return self.reply({'text': 'Your command has been cancelled. Anything else?', 'reply_markup': {'hide_keyboard': True, 'selective': True}})
+    def propose_for_deletion(self, *args, **kwargs):
+        shortcut = kwargs.get('rest', u'')
+
+        if shortcut:
+            key = self.redis_prefix + 'messages:' + shortcut
+            message = self.redis.hgetall(key)
+            if message:
+                return self.reply(message)
+            else:
+                return self.reply({'text': "I don't know about that one."})
+        else:
+            message_id = self.redis.srandmember(self.redis_prefix + 'messages')
+            message = self.redis.hgetall(self.redis_prefix + 'messages:' + str(message_id))
+            return self.reply(message)
 
     def help(self, *args, **kwargs):
         return self.reply({'text': 'You called for help. None given.'})
